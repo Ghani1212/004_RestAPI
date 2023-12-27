@@ -124,6 +124,7 @@ fun KontakCard(
                 text = kontak.alamat,
                 style = MaterialTheme.typography.titleMedium
             )
+            Spacer(Modifier.weight(1f))
         }
     }
 }
