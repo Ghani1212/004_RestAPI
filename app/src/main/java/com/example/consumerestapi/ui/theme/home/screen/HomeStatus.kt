@@ -33,7 +33,7 @@ import com.example.consumerestapi.model.Kontak
 import com.example.consumerestapi.ui.theme.home.viewmodel.KontakUIState
 
 @Composable
-fun HomeScreen(
+fun HomeStatus(
     kontakUIState: KontakUIState, retryAction: () -> Unit, modifier: Modifier = Modifier
 ) {
     when (kontakUIState) {
@@ -93,7 +93,8 @@ fun KontakLayout(
         items(kontak) { kontak ->
             KontakCard(kontak = kontak, modifier = Modifier
                 .fillMaxWidth()
-                .clickable {})
+                .clickable { onDetailClick(kontak) },
+            )
         }
     }
 }
