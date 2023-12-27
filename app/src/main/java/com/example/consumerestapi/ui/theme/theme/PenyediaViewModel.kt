@@ -3,6 +3,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.consumeapi.ui.kontak.viewmodel.InsertViewModel
 import com.example.consumerestapi.KontakAplication
 import com.example.consumerestapi.ui.theme.home.viewmodel.HomeViewModel
 
@@ -11,6 +12,9 @@ object PenyediaViewModel {
 
         initializer {
             HomeViewModel(aplikasiKontak().container.kontakRepository)
+        }
+        initializer {
+            InsertViewModel(aplikasiKontak().container.kontakRepository)
         }
     }
 }
