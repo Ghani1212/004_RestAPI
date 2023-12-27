@@ -19,6 +19,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +36,7 @@ import com.example.consumerestapi.ui.theme.home.viewmodel.KontakUIState
 fun HomeScreen(
     kontakUIState: KontakUIState, retryAction: () -> Unit, modifier: Modifier = Modifier
 ) {
-    when (kontakUIState){
+    when (kontakUIState) {
         is KontakUIState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
         is KontakUIState.Success -> KontakLayout(
             kontak = kontakUIState.kontak, modifier = modifier.fillMaxWidth()
@@ -46,7 +47,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun OnLoading(modifier: Modifier = Modifier){
+fun OnLoading(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier.size(200.dp),
         painter = painterResource(R.drawable.loading_img),
@@ -55,18 +56,19 @@ fun OnLoading(modifier: Modifier = Modifier){
 }
 
 @Composable
-fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier){
-    Column (
+fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ic_connection_error),
             contentDescription = ""
         )
         Text(
-            text = stringResource(id = R.string.loading_failed), modifier = Modifier.padding(16.dp))
+            text = stringResource(id = R.string.loading_failed), modifier = Modifier.padding(16.dp)
+        )
         Button(onClick = retryAction) {
             Text(stringResource(R.string.retry))
 
@@ -75,37 +77,38 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier){
 }
 
 @Composable
-fun KontakLayout(kontak: List<Kontak>, modifier: Modifier = Modifier ){
+fun KontakLayout(kontak: List<Kontak>, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
-    ){
-        items(kontak){kontak ->
+    ) {
+        items(kontak) { kontak ->
             KontakCard(kontak = kontak, modifier = Modifier
                 .fillMaxWidth()
                 .clickable {})
         }
     }
 }
+
 @Composable
 fun KontakCard(
     kontak: Kontak,
     onDeleteClick: (Kontak) -> Unit = {},
     modifier: Modifier = Modifier
-){
-    Card (
+) {
+    Card(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
-    ){
-        Column (
+    ) {
+        Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
-        ){
-            Row (
+        ) {
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-            ){
+            ) {
                 Text(
                     text = kontak.nama,
                     style = MaterialTheme.typography.titleLarge,
@@ -125,6 +128,12 @@ fun KontakCard(
                 style = MaterialTheme.typography.titleMedium
             )
             Spacer(Modifier.weight(1f))
+            IconButton(onClick = { onDeleteClick(kontak) }) {
+            }
+            Icon(
+                imageVector = Icons.Default.Phone,
+                contentDescription = null,
+            )
         }
     }
 }
